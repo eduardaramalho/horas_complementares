@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:horas_complementares/actitivies_page.dart';
+import 'package:horas_complementares/modules/hours/presenter/actitivies_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

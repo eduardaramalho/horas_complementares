@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:horas_complementares/activitie_component.dart';
+import 'package:horas_complementares/modules/hours/presenter/activities_form_page.dart';
+import 'package:horas_complementares/modules/hours/presenter/widgets/activitie_component.dart';
+import 'package:horas_complementares/modules/user/presenter/user_profile_page.dart';
 
 class ActitiviesPage extends StatefulWidget {
   const ActitiviesPage({super.key});
@@ -12,35 +14,49 @@ class _ActitiviesPageState extends State<ActitiviesPage> {
   final List<Map<String, dynamic>> activities = [
     {
       'title': 'Artigo - GCS',
-      'workload': '60hrs',
+      'workload': '60',
       'status': 'Aprovado',
       'icon': Icons.check_circle_outline,
       'textColor': const Color(0xFF6AC973),
     },
     {
       'title': 'Curso Java',
-      'workload': '30hrs',
+      'workload': '30',
       'status': 'Pendente',
       'icon': Icons.schedule_outlined,
       'textColor': const Color(0xFFFFC107),
     },
     {
       'title': 'Projeto Social',
-      'workload': '40hrs',
+      'workload': '40',
       'status': 'Reprovado',
       'icon': Icons.cancel_outlined,
       'textColor': const Color(0xFFD32F2F),
     },
     {
       'title': 'Seminário',
-      'workload': '20hrs',
+      'workload': '20',
       'status': 'Aprovado',
       'icon': Icons.check_circle_outline,
       'textColor': const Color(0xFF6AC973),
     },
     {
       'title': 'Curso de Flutter',
-      'workload': '20hrs',
+      'workload': '20',
+      'status': 'Reprovado',
+      'icon': Icons.cancel_outlined,
+      'textColor': const Color(0xFFD32F2F),
+    },
+    {
+      'title': 'Curso de Flutter',
+      'workload': '20',
+      'status': 'Reprovado',
+      'icon': Icons.cancel_outlined,
+      'textColor': const Color(0xFFD32F2F),
+    },
+    {
+      'title': 'Curso de Flutter',
+      'workload': '20',
       'status': 'Reprovado',
       'icon': Icons.cancel_outlined,
       'textColor': const Color(0xFFD32F2F),
@@ -51,16 +67,22 @@ class _ActitiviesPageState extends State<ActitiviesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(0xFF6AC973),
-          onPressed: () {},
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          )),
+        backgroundColor: const Color(0xFF6AC973),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ActivitiesFormPage()),
+          );
+        },
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
-        backgroundColor:
-            const Color.fromARGB(255, 212, 212, 212).withOpacity(0.2),
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xFFD4D4D4).withOpacity(0.2),
         title: Align(
           alignment: Alignment.center,
           child: Image.asset(
@@ -70,41 +92,42 @@ class _ActitiviesPageState extends State<ActitiviesPage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.person_outline,
-                color: Color(0xFF9B1536),
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notification_add_outlined,
-                color: Color(0xFF9B1536),
-              ))
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Text('Bem-vindo ao sistema de avaliações de atividades.'),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Text(
-              'Eduarda Cristina Nunes da Silveira Ramalho',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const UserProfilePage()),
+              );
+            },
+            icon: const Icon(
+              Icons.person_outline,
+              color: Color(0xFF9B1536),
             ),
           ),
-          const SizedBox(height: 10),
-          ListView.builder(
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Bem-vindo, Aluno!',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              'Essas são as suas atitividades complementares.',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 10),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: activities.length,
               itemBuilder: (context, index) {
                 final activity = activities[index];
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ActivitieComponent(
                     title: activity['title'],
                     workload: activity['workload'],
@@ -113,8 +136,10 @@ class _ActitiviesPageState extends State<ActitiviesPage> {
                     textColor: activity['textColor'],
                   ),
                 );
-              }),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
       bottomSheet: Container(
         color: const Color(0xFF9B1536),
