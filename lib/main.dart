@@ -1,26 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:horas_complementares/modules/hours/presenter/actitivies_detail_page.dart';
-import 'package:horas_complementares/modules/hours/presenter/actitivies_page.dart';
-import 'package:horas_complementares/modules/hours/presenter/activities_form_page.dart';
-import 'package:horas_complementares/modules/auth/presenter/login_page.dart';
-import 'package:horas_complementares/modules/user/presenter/user_profile_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'firebase_options.dart';
+import 'src/app_injections.dart';
+import 'src/app_widget.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: 'Montserrat'),
-      home: LoginPage(),
-    );
-  }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await AppInjections.initialize();
+
+  runApp(const AppWidget());
 }

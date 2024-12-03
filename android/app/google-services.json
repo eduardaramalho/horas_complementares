@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145944893273",
+    "project_id": "catolicasc-horas-complementar",
+    "storage_bucket": "catolicasc-horas-complementar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145944893273:android:ce5335b4eb326feded9e48",
+        "android_client_info": {
+          "package_name": "br.org.catolicasc.horascomplementares.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG-1Nq0JUVYDHVjtRZt_2NVkqQ4aJ24FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

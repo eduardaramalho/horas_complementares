@@ -41,3 +41,20 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Generated Files
+
+generated_plugin_registrant.cc
+generated_plugin_registrant.h
+generated_plugins.cmake
+GeneratedPluginRegistrant.swift
+pubspec.lock
+.metadata
+.DS_Store
+pubspec_overrides.yaml
+.fvm
+
+# Remove environment file
+env.json
+
+
