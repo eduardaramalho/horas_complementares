@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../../../core/contracts/app_notifier.dart';
 import '../../data/dtos/auth_user_dto.dart';
 import '../../domain/usecases/login_user_usecase.dart';
@@ -15,39 +13,17 @@ class AuthController extends AppNotifier<AuthState> {
     this._signUpUserUsecase,
   ) : super(const InitialAuthState());
 
-  final ValueNotifier<bool> isLogin = ValueNotifier<bool>(true);
-  void toggleLogin() => isLogin.value = !isLogin.value;
-
   String email = '';
   void setEmail(String value) => email = value;
 
   String password = '';
   void setPassword(String value) => password = value;
 
-  Future<void> save() async {
-    setState(const SendingAuthState());
+  Future<void> login() async {
+    // TODO implements login
+    return setState(const SuccessAuthState());
 
-    if (isLogin.value) return _login();
-    return _signUp();
-  }
-
-  Future<void> _login() async {
     final result = await _loginUserUsecase.execute(
-      AuthUserDto(
-        email: email,
-        password: password,
-      ),
-    );
-
-    result.fold((error) {
-      setState(ErrorAuthState(error.message));
-    }, (success) {
-      setState(const SuccessAuthState());
-    });
-  }
-
-  Future<void> _signUp() async {
-    final result = await _signUpUserUsecase.execute(
       AuthUserDto(
         email: email,
         password: password,

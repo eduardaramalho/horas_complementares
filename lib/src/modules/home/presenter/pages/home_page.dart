@@ -2,6 +2,9 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/home_controller.dart';
+import '../controllers/states/home_content_state.dart';
+import '../resources/home_resources.dart';
+import '../widgets/activitie_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   final HomeController controller;
@@ -19,6 +22,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    widget.controller.getAllActivities();
   }
 
   @override
@@ -28,19 +33,96 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: context.colors.surface,
-        surfaceTintColor: context.colors.surface,
+        title: Image.asset(
+          'assets/imgs/logo-catolica.png',
+          height: 48,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const UserProfilePage(),
+              //   ),
+              // );
+            },
+            icon: const Icon(
+              Icons.person_outline,
+              color: CatolicaColors.primary700,
+            ),
+          ),
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const Padding(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 36),
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xFF6AC973),
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const ActivitiesFormPage()),
+            // );
+          },
+          shape: const CircleBorder(),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text(
+                HomeResources.welcomeStudent,
+                style: context.texts.headingH6.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                HomeResources.activitiesComplementary,
+                style: context.texts.paragraphMedium,
+              ),
+              SizedBox(height: 24),
+              ValueListenableBuilder(
+                valueListenable: HomeContentState.activities,
+                builder: (context, activities, child) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: activities.length,
+                    itemBuilder: (context, index) {
+                      final activity = activities[index];
+
+                      return ActivitieCardWidget(
+                        activity: activity,
+                      );
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        ),
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 16),
-            SizedBox(height: 24),
-            SizedBox(height: 24),
-          ],
+      bottomSheet: Container(
+        color: CatolicaColors.primary700,
+        height: 48,
+        width: double.infinity,
+        child: Center(
+          child: Text(
+            HomeResources.hoursNeededToFinish(320),
+            style: context.texts.paragraphMedium.copyWith(
+              color: CatolicaColors.white,
+            ),
+          ),
         ),
       ),
     );

@@ -21,7 +21,7 @@ class CatolicaColors {
   static const primary400 = Color(0xffE93A4B);
   static const primary500 = Color(0xffE42141);
   static const primary600 = Color(0xffC41A3A);
-  static const primary700 = Color(0xff651028);
+  static const primary700 = Color(0xff9B1536);
   static const primary800 = Color(0xff4C0C1D);
   static const primary900 = Color(0xff330716);
 

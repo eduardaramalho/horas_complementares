@@ -1,3 +1,4 @@
+export 'buttons/catolica_primary_button.dart';
 export 'buttons/catolica_secondary_button.dart';
 export 'counters/catolica_counter_field.dart';
 export 'dropdown/catolica_dropdown_field.dart';

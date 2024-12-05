@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/activitie_component.dart';
-
 class ActitiviesPage extends StatefulWidget {
   const ActitiviesPage({super.key});
 
@@ -119,24 +117,24 @@ class _ActitiviesPageState extends State<ActitiviesPage> {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 10),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: activities.length,
-              itemBuilder: (context, index) {
-                final activity = activities[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ActivitieComponent(
-                    title: activity['title'],
-                    workload: activity['workload'],
-                    status: activity['status'],
-                    icon: activity['icon'],
-                    textColor: activity['textColor'],
-                  ),
-                );
-              },
-            ),
+            // ListView.builder(
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   shrinkWrap: true,
+            //   itemCount: activities.length,
+            //   itemBuilder: (context, index) {
+            //     final activity = activities[index];
+            //     return Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 10),
+            //       child: ActivitieComponent(
+            //         title: activity['title'],
+            //         workload: activity['workload'],
+            //         status: activity['status'],
+            //         icon: activity['icon'],
+            //         textColor: activity['textColor'],
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
