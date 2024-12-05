@@ -1,8 +1,10 @@
 enum Routes {
   splash('splash', '/'),
-  // welcome('welcome', '/welcome'),
   auth('auth', '/auth'),
-  home('home', '/home');
+  home('home', '/home'),
+  activitiesForm('activitiesForm', '/activitiesForm'),
+  activityDetails('activityDetails', '/activityDetails'),
+  ;
 
   final String name;
   final String path;

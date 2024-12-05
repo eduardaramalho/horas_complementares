@@ -9,16 +9,15 @@ class ActivitiesDetailPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFFD4D4D4).withOpacity(0.2),
         title: Align(
-          alignment: Alignment.center,
           child: Image.asset(
-            'assets/logo-catolica.png',
+            'assets/imgs/logo-catolica.png',
             height: 60,
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -74,7 +73,7 @@ class ActivitiesDetailPage extends StatelessWidget {
     required String value,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

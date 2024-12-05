@@ -83,7 +83,7 @@ class _CatolicaDropdownFieldState<T> extends State<CatolicaDropdownField<T>> {
                                 child: Text(
                                   _dropdownLabel,
                                   style: context.texts.paragraphSmall.copyWith(
-                                    color: CatolicaColors.neutral400,
+                                    color: _dropdownLabelColor,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -164,6 +164,11 @@ class _CatolicaDropdownFieldState<T> extends State<CatolicaDropdownField<T>> {
   String get _dropdownLabel {
     if (selectedValue != null) return selectedValue.toString();
     return widget.hint ?? '';
+  }
+
+  Color get _dropdownLabelColor {
+    if (selectedValue != null) return CatolicaColors.neutral900;
+    return CatolicaColors.neutral400;
   }
 
   double get _dropdownHeight {

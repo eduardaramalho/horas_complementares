@@ -1,6 +1,8 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes/custom_navigator.dart';
+import '../../../../core/routes/routes.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/states/home_content_state.dart';
 import '../resources/home_resources.dart';
@@ -40,12 +42,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const UserProfilePage(),
-              //   ),
-              // );
+              // CustomNavigator.of(context).push(Routes.user);
             },
             icon: const Icon(
               Icons.person_outline,
@@ -60,10 +57,7 @@ class _HomePageState extends State<HomePage> {
         child: FloatingActionButton(
           backgroundColor: const Color(0xFF6AC973),
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const ActivitiesFormPage()),
-            // );
+            CustomNavigator.of(context).push(Routes.activitiesForm);
           },
           shape: const CircleBorder(),
           child: const Icon(
