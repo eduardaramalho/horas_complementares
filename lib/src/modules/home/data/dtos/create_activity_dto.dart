@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../core/contracts/contracts.dart';
 import '../../domain/enums/activity_categories_enum.dart';
 import '../../domain/enums/activity_status_enum.dart';
@@ -18,4 +20,17 @@ class CreateActivityDto extends DTO {
     required this.status,
     required this.category,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'userId': userId,
+      'title': title,
+      'workload': workload,
+      'description': description,
+      'statusId': status.id,
+      'categoryId': category.id,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

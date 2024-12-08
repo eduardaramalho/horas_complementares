@@ -2,6 +2,7 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/mixins/validators/required_field_validator_mixin.dart';
+import '../../../../core/routes/custom_navigator.dart';
 import '../../domain/enums/activity_categories_enum.dart';
 import '../controllers/activities_form_controller.dart';
 import '../controllers/states/activities_form_content_state.dart';
@@ -77,8 +78,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               CatolicaTextFormField(
                 label: 'Descrição da atividade:',
                 hint: 'Digite uma descrição para a atividade',
-                initialValue: ActivitiesFormContentState.name,
-                onChanged: ActivitiesFormContentState.setName,
+                initialValue: ActivitiesFormContentState.description,
+                onChanged: ActivitiesFormContentState.setDescription,
                 maxLength: 300,
                 hasCounter: true,
                 isRequired: true,
@@ -117,13 +118,16 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               const SizedBox(height: 32),
               CatolicaPrimaryButton(
                 label: 'ENVIAR PROJETO PARA REVISÃO',
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Projeto enviado para revisão'),
-                      ),
-                    );
+                    await widget.controller.createActivity().then((_) {
+                      CustomNavigator.of(context).pop(true);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Projeto enviado para revisão'),
+                        ),
+                      );
+                    });
                   }
                 },
               ),

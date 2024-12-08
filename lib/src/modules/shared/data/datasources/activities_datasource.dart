@@ -17,52 +17,25 @@ class ActivitiesDataSource implements IActivitiesDataSource {
     required IHttpService httpService,
   }) : _httpService = httpService;
 
-  // @override
-  // AsyncResult<bool> addActivities(SaveActivitiesDto dto) async {
-  //   try {
-  //     final docRef = _firebaseFirestore.collection('Activitiess').doc();
-
-  //     await docRef.set(dto.toMap());
-
-  //     return right(true);
-  //   } catch (e, st) {
-  //     return left(
-  //       SaveActivitiesException(
-  //         message: 'Erro ao salvar o Activities',
-  //         stackTrace: st,
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // @override
-  // AsyncResult<List<ActivitiesModel>> getAllActivitiess() async {
-  //   try {
-  //     final querySnapshot = await _firebaseFirestore.collection('Activitiess').get();
-
-  //     final Activitiess = querySnapshot.docs.map((doc) {
-  //       final data = doc.data();
-  //       return ActivitiesModel.fromMap({
-  //         ...data,
-  //         'id': doc.id,
-  //       });
-  //     }).toList();
-
-  //     return right(Activitiess);
-  //   } catch (e, st) {
-  //     return left(
-  //       GetAllActivitiessException(
-  //         message: 'Erro ao buscar os Activitiess',
-  //         stackTrace: st,
-  //       ),
-  //     );
-  //   }
-  // }
-
   @override
-  AsyncResult<bool> createActivity(CreateActivityDto dto) {
-    // TODO: implement createActivity
-    throw UnimplementedError();
+  AsyncResult<bool> createActivity(CreateActivityDto dto) async {
+    try {
+      await _httpService.post(
+        HttpRequestDTO(
+          path: '/activities',
+          data: dto.toMap(),
+        ),
+      );
+
+      return right(true);
+    } catch (e, st) {
+      return left(
+        CreateActivityException(
+          message: 'Erro ao criar a atividade',
+          stackTrace: st,
+        ),
+      );
+    }
   }
 
   @override

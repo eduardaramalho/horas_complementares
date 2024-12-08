@@ -6,8 +6,8 @@ final class InitialActivitiesFormState extends ActivitiesFormState {
   const InitialActivitiesFormState();
 }
 
-final class LoadingActivitiesFormState extends ActivitiesFormState {
-  const LoadingActivitiesFormState();
+final class SendingActivitiesFormState extends ActivitiesFormState {
+  const SendingActivitiesFormState();
 }
 
 final class ErrorActivitiesFormState extends ActivitiesFormState {
@@ -16,6 +16,6 @@ final class ErrorActivitiesFormState extends ActivitiesFormState {
   const ErrorActivitiesFormState(this.message);
 }
 
-final class LoadedActivitiesFormState extends ActivitiesFormState {
-  const LoadedActivitiesFormState();
+final class SuccessActivitiesFormState extends ActivitiesFormState {
+  const SuccessActivitiesFormState();
 }

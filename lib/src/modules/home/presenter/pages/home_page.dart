@@ -54,7 +54,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF6AC973),
-        onPressed: () => CustomNavigator.of(context).push(Routes.activitiesForm),
+        onPressed: () => CustomNavigator.of(context).push(Routes.activitiesForm).then((value) {
+          if (value != null) widget.controller.getAllActivities();
+        }),
         shape: const CircleBorder(),
         child: const Icon(
           Icons.add,
