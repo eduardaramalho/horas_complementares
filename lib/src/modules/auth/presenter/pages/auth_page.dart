@@ -94,6 +94,7 @@ class _AuthPageState extends State<AuthPage> with EmailValidatorMixin, PasswordV
                         ),
                         const SizedBox(height: 16),
                         CatolicaTextFormField(
+                          onChanged: widget.controller.setEmail,
                           label: AuthResources.email,
                           hint: AuthResources.typeEmail,
                           isRequired: true,
@@ -101,6 +102,7 @@ class _AuthPageState extends State<AuthPage> with EmailValidatorMixin, PasswordV
                         ),
                         const SizedBox(height: 16),
                         CatolicaTextFormField(
+                          onChanged: widget.controller.setPassword,
                           label: AuthResources.password,
                           hint: AuthResources.typePassword,
                           isRequired: true,

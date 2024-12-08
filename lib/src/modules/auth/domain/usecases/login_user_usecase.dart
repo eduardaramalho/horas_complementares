@@ -11,7 +11,18 @@ class LoginUserUsecase implements AsyncUsecaseWithParamsContract<bool, AuthUserD
   }) : _authService = authService;
 
   @override
-  AsyncResult<bool> execute(AuthUserDto dto) {
-    return _authService.loginWithEmail(dto.email, dto.password);
+  AsyncResult<bool> execute(AuthUserDto dto) async {
+    final result = await _authService.loginWithEmail(dto.email, dto.password);
+
+    // TODO: apenas para demonstração
+    // quando tiver o sistema de login da Católica
+    // que não permite auto cadastro, apenas login
+    if (result.isError) {
+      final signUpResult = await _authService.signUpWithEmail(dto.email, dto.password);
+
+      return signUpResult;
+    }
+
+    return result;
   }
 }
