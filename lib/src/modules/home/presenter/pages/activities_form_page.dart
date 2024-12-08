@@ -1,6 +1,7 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/mixins/validators/required_field_validator_mixin.dart';
 import '../../domain/enums/activity_categories_enum.dart';
 import '../controllers/activities_form_controller.dart';
 import '../controllers/states/activities_form_content_state.dart';
@@ -14,33 +15,16 @@ class ActivitiesFormPage extends StatefulWidget {
   State<ActivitiesFormPage> createState() => _ActivitiesFormPageState();
 }
 
-class _ActivitiesFormPageState extends State<ActivitiesFormPage> {
+class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFieldValidatorMixin {
   final _formKey = GlobalKey<FormState>();
-
-  final List<String> _categories = [
-    'Participação em projetos de iniciação científica.',
-    'Visitas técnicas e viagens de estudo não pertencentes aos PE’s das disciplinas do curso.',
-    'Disciplinas isoladas em outro curso que complementem sua formação.',
-    'Participação em projetos sociais, atividades comunitárias e acadêmicas.',
-    'Participação em conferências, palestras e eventos relacionados à área.',
-    'Participação como ouvinte em defesas de trabalhos de conclusão.',
-    'Participação em pesquisas institucionais.',
-    'Estágio Curricular Não Obrigatório.',
-    'Viagens de Intercâmbio.',
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/imgs/logo-catolica.png',
-              height: 50,
-            ),
-          ],
+        title: Text(
+          'NOVA ATIVIDADE COMPLEMENTAR',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
       body: Form(
@@ -51,18 +35,13 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const Center(
-                child: Text(
-                  'NOVA ATIVIDADE COMPLEMENTAR',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 16),
               CatolicaTextFormField(
                 label: 'Nome da atividade:',
                 hint: 'Digite o nome da atividade',
                 initialValue: ActivitiesFormContentState.name,
                 onChanged: ActivitiesFormContentState.setName,
+                isRequired: true,
+                validator: isValidRequiredField,
               ),
               const SizedBox(height: 16),
               Text(
@@ -76,6 +55,11 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> {
                   return CatolicaCounterField(
                     value: workload,
                     onChanged: ActivitiesFormContentState.setWorkload,
+                    validator: (value) {
+                      if (value < 1) return 'A carga horária deve ser maior que 0';
+
+                      return null;
+                    },
                   );
                 },
               ),
@@ -86,6 +70,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> {
                 items: ActivityCategoriesEnum.values,
                 initialValue: ActivitiesFormContentState.category,
                 onChanged: ActivitiesFormContentState.setCategory,
+                isRequired: true,
+                validator: isValidRequiredField,
               ),
               const SizedBox(height: 16),
               CatolicaTextFormField(
@@ -95,6 +81,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> {
                 onChanged: ActivitiesFormContentState.setName,
                 maxLength: 300,
                 hasCounter: true,
+                isRequired: true,
+                validator: isValidRequiredField,
               ),
               const SizedBox(height: 16),
               Container(

@@ -116,7 +116,7 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
             fillColor: widget.enabled ? Colors.white : CatolicaColors.neutral200,
             errorMaxLines: 2,
             errorStyle: context.texts.paragraphXSmall.copyWith(
-              color: CatolicaColors.primary900,
+              color: context.colors.error,
             ),
             suffixIconConstraints: const BoxConstraints.tightFor(
               width: 30,
@@ -142,8 +142,8 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
               ),
             ),
             errorBorder: defaultBorder.copyWith(
-              borderSide: const BorderSide(
-                color: CatolicaColors.neutral700,
+              borderSide: BorderSide(
+                color: context.colors.error,
               ),
             ),
             focusedErrorBorder: defaultBorder.copyWith(

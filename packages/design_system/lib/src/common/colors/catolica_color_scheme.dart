@@ -9,7 +9,7 @@ class CatolicaColorScheme extends ColorScheme {
     super.onPrimary = CatolicaColors.white,
     super.secondary = CatolicaColors.white,
     super.onSecondary = CatolicaColors.white,
-    super.error = CatolicaColors.primary500,
+    super.error = CatolicaColors.error,
     super.onError = CatolicaColors.white,
     super.background = CatolicaColors.white,
     super.onBackground = CatolicaColors.primary900,

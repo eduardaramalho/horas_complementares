@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../states/current_user_state.dart';
 import '../../../utils/either.dart';
 import '../credentials/adapters/user_auth_credential_adapter.dart';
 import '../credentials/user_auth_credential.dart';
@@ -25,10 +26,12 @@ class FirebaseAuthService implements IAuthService {
   @override
   AsyncResult<bool> signUpWithEmail(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      final result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      CurrentUserState.setUserId(result.user!.uid);
 
       return right(true);
     } on FirebaseAuthException catch (error, stackTrace) {
@@ -44,10 +47,12 @@ class FirebaseAuthService implements IAuthService {
   @override
   AsyncResult<bool> loginWithEmail(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      final result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      CurrentUserState.setUserId(result.user!.uid);
 
       return right(true);
     } on FirebaseAuthException catch (error, stackTrace) {
@@ -66,6 +71,8 @@ class FirebaseAuthService implements IAuthService {
       final firebaseUser = _auth.currentUser;
 
       if (firebaseUser == null) return null;
+
+      CurrentUserState.setUserId(firebaseUser.uid);
 
       return UserAuthCredentialAdapter.fromFirebase(firebaseUser);
     } on FirebaseAuthMultiFactorException catch (error, stackTrace) {

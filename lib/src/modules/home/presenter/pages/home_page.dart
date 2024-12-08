@@ -52,18 +52,13 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 36),
-        child: FloatingActionButton(
-          backgroundColor: const Color(0xFF6AC973),
-          onPressed: () {
-            CustomNavigator.of(context).push(Routes.activitiesForm);
-          },
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF6AC973),
+        onPressed: () => CustomNavigator.of(context).push(Routes.activitiesForm),
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
       body: Padding(
@@ -103,19 +98,6 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 24),
             ],
-          ),
-        ),
-      ),
-      bottomSheet: Container(
-        color: CatolicaColors.primary700,
-        height: 48,
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            HomeResources.hoursNeededToFinish(320),
-            style: context.texts.paragraphMedium.copyWith(
-              color: CatolicaColors.white,
-            ),
           ),
         ),
       ),
