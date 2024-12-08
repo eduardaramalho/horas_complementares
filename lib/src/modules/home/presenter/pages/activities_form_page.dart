@@ -20,6 +20,13 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    widget.controller.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -47,7 +47,6 @@ class ActivitiesDataSource implements IActivitiesDataSource {
         ),
       );
 
-      // parse the response
       final List<ActivityModel> activities =
           (httpResult.body as List).map((e) => ActivityModel.fromMap(e as Map<String, dynamic>)).toList();
 

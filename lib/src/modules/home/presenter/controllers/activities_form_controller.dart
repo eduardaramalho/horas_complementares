@@ -11,6 +11,11 @@ class ActivitiesFormController extends AppNotifier<ActivitiesFormState> {
 
   ActivitiesFormController(this._createUserActivityUsecase) : super(const InitialActivitiesFormState());
 
+  void init() {
+    ActivitiesFormContentState.reset();
+    setState(const InitialActivitiesFormState());
+  }
+
   Future<void> createActivity() async {
     setState(const SendingActivitiesFormState());
 

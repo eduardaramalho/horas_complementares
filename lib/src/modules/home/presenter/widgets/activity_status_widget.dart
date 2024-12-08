@@ -12,7 +12,7 @@ class ActivityStatusWidget extends StatelessWidget {
     return Row(
       children: [
         Icon(
-          Icons.abc_outlined,
+          icon,
           size: 18,
           color: textColor,
         ),
@@ -27,6 +27,15 @@ class ActivityStatusWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  IconData get icon {
+    // TODO: get icons from CatolicaIcons
+    return switch (status) {
+      ActivityStatusEnum.pending => Icons.pending_outlined,
+      ActivityStatusEnum.aproved => Icons.check_circle_outline,
+      ActivityStatusEnum.reproved => Icons.cancel_outlined,
+    };
   }
 
   Color get textColor {

@@ -14,4 +14,11 @@ class ActivitiesFormContentState {
 
   static String description = '';
   static void setDescription(String value) => description = value;
+
+  static void reset() {
+    workload.value = 0;
+    category = null;
+    name = '';
+    description = '';
+  }
 }
