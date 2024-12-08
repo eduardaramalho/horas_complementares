@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": "3HR9fewURLUuimQMuCxiJrVcGiQ2",
+      "email": "artur.zanella@catolicasc.edu.br"
+    }
+  ],
+  "activities": [
+    {
+      "id": "id1",
+      "userId": "3HR9fewURLUuimQMuCxiJrVcGiQ2",
+      "title": "Artigo",
+      "workload": 20,
+      "categoryId": 1,
+      "statusId": 1,
+      "description": "Artigo sobre a importância da tecnologia na educação"
+    },
+    {
+      "id": "id2",
+      "userId": "ffsafsa",
+      "title": "Artigo",
+      "workload": 20,
+      "categoryId": 1,
+      "statusId": 1,
+      "description": "Artigo sobre a importância da tecnologia na educação"
+    },
+    {
+      "id": "b8d0",
+      "userId": "3HR9fewURLUuimQMuCxiJrVcGiQ2",
+      "title": "nome",
+      "workload": 10,
+      "description": "dsec",
+      "statusId": 0,
+      "categoryId": 0
+    }
+  ]
+}

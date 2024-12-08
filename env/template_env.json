@@ -1,6 +1,3 @@
 {
-    "BASE_URL": "yourBaseUrl",
-    "API_KEY": "yourApiKey",
-    "Rename file to": "env.json",
-    "And Put": "You environment variables here"
+    "BASE_URL": "api address"
 }
