@@ -5,6 +5,7 @@ import '../enums/activity_status_enum.dart';
 
 class ActivityModel {
   final String id;
+  final String userId;
   final String title;
   final int workload;
   final String description;
@@ -13,6 +14,7 @@ class ActivityModel {
 
   const ActivityModel({
     required this.id,
+    required this.userId,
     required this.title,
     required this.workload,
     required this.description,
@@ -23,6 +25,7 @@ class ActivityModel {
   factory ActivityModel.fromMap(Map<String, dynamic> map) {
     return ActivityModel(
       id: map['id'] as String,
+      userId: map['userId'] as String,
       title: map['title'] as String,
       workload: map['workload'] as int,
       description: map['description'] as String,

@@ -7,7 +7,10 @@ class DioFactory {
   /// set to the one specified in the FlavorConfiguration.
   Dio create() {
     return Dio(
-      BaseOptions(baseUrl: 'base_url'),
+      BaseOptions(
+        // TODO: get from environment
+        baseUrl: 'http://192.168.50.158:3000',
+      ),
     );
   }
 }

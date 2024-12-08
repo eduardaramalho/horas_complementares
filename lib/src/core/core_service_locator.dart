@@ -8,5 +8,6 @@ class CoreServiceLocator extends ModuleServiceLocator {
   Future<void> registerBinds() async {
     ServiceLocator.instance.bindFactory<FirebaseAuth>(() => FirebaseAuth.instance);
     ServiceLocator.instance.bindFactory<IAuthService>(() => FirebaseAuthService(get()));
+    ServiceLocator.instance.bindFactory<IHttpService>(() => DioHttpService(DioFactory().create()));
   }
 }
