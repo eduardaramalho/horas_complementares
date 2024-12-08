@@ -138,17 +138,18 @@ class _CatolicaDropdownFieldState<T> extends State<CatolicaDropdownField<T>> {
                                       color: CatolicaColors.neutral200,
                                     ),
                                   ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Expanded(
-                                      child: Text(
-                                        item.toString(),
-                                        style: context.texts.paragraphSmall.copyWith(
-                                          color: CatolicaColors.neutral900,
-                                          overflow: TextOverflow.ellipsis,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          item.toString(),
+                                          style: context.texts.paragraphSmall.copyWith(
+                                            color: CatolicaColors.neutral900,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               );

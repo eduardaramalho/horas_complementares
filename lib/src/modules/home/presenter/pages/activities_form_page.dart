@@ -6,6 +6,7 @@ import '../../../../core/routes/custom_navigator.dart';
 import '../../domain/enums/activity_categories_enum.dart';
 import '../controllers/activities_form_controller.dart';
 import '../controllers/states/activities_form_content_state.dart';
+import '../resources/activities_form_resources.dart';
 
 class ActivitiesFormPage extends StatefulWidget {
   final ActivitiesFormController controller;
@@ -31,8 +32,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'NOVA ATIVIDADE COMPLEMENTAR',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ActivitiesFormResources.title,
+          style: context.texts.headingH6.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: Form(
@@ -44,8 +45,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
             children: [
               const SizedBox(height: 16),
               CatolicaTextFormField(
-                label: 'Nome da atividade:',
-                hint: 'Digite o nome da atividade',
+                label: ActivitiesFormResources.activityNameLabel,
+                hint: ActivitiesFormResources.activityNameHint,
                 initialValue: ActivitiesFormContentState.name,
                 onChanged: ActivitiesFormContentState.setName,
                 isRequired: true,
@@ -53,7 +54,7 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               ),
               const SizedBox(height: 16),
               Text(
-                'Quantidade de horas:',
+                ActivitiesFormResources.workloadLabel,
                 style: context.texts.paragraphMedium,
               ),
               const SizedBox(height: 8),
@@ -64,7 +65,7 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
                     value: workload,
                     onChanged: ActivitiesFormContentState.setWorkload,
                     validator: (value) {
-                      if (value < 1) return 'A carga horária deve ser maior que 0';
+                      if (value < 1) return ActivitiesFormResources.workloadMustBeHigherThanZero;
 
                       return null;
                     },
@@ -73,8 +74,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               ),
               const SizedBox(height: 16),
               CatolicaDropdownField(
-                label: 'Categoria',
-                hint: 'Selecione uma categoria',
+                label: ActivitiesFormResources.categoryLabel,
+                hint: ActivitiesFormResources.categoryHint,
                 items: ActivityCategoriesEnum.values,
                 initialValue: ActivitiesFormContentState.category,
                 onChanged: ActivitiesFormContentState.setCategory,
@@ -83,8 +84,8 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               ),
               const SizedBox(height: 16),
               CatolicaTextFormField(
-                label: 'Descrição da atividade:',
-                hint: 'Digite uma descrição para a atividade',
+                label: ActivitiesFormResources.descriptionLabel,
+                hint: ActivitiesFormResources.descriptionHint,
                 initialValue: ActivitiesFormContentState.description,
                 onChanged: ActivitiesFormContentState.setDescription,
                 maxLength: 300,
@@ -102,20 +103,20 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
                 ),
                 child: InkWell(
                   onTap: () {},
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // TODO: Change this icon to a CatolicaIcon
                       Icon(
                         Icons.upload_file,
                         size: 40,
-                        color: Colors.grey,
+                        color: CatolicaColors.neutral500,
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Fazer upload de certificado',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
+                        ActivitiesFormResources.uploadCertificateLabel,
+                        style: context.texts.paragraphSmall.copyWith(
+                          color: CatolicaColors.neutral500,
                         ),
                       ),
                     ],
@@ -124,14 +125,14 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
               ),
               const SizedBox(height: 32),
               CatolicaPrimaryButton(
-                label: 'ENVIAR PROJETO PARA REVISÃO',
+                label: ActivitiesFormResources.sendToReviewButton,
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
                     await widget.controller.createActivity().then((_) {
                       CustomNavigator.of(context).pop(true);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Projeto enviado para revisão'),
+                          content: Text(ActivitiesFormResources.sentToReviewMessage),
                         ),
                       );
                     });
