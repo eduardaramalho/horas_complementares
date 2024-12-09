@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../../core/contracts/app_notifier.dart';
 import '../../../../core/states/current_user_state.dart';
 import '../../data/dtos/create_activity_dto.dart';
@@ -25,6 +27,8 @@ class ActivitiesFormController extends AppNotifier<ActivitiesFormState> {
       description: ActivitiesFormContentState.description,
       category: ActivitiesFormContentState.category!,
       workload: ActivitiesFormContentState.workload.value,
+      // Fazer com CDN quando tiver backend
+      base64File: base64Encode(ActivitiesFormContentState.file!.readAsBytesSync()),
       // Não devera ser passado o status aqui, pois o status é definido pelo backend
       status: ActivityStatusEnum.pending,
     );

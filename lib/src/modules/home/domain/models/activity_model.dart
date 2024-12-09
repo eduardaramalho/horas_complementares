@@ -11,6 +11,7 @@ class ActivityModel {
   final String description;
   final ActivityStatusEnum status;
   final ActivityCategoriesEnum category;
+  final String base64File;
 
   const ActivityModel({
     required this.id,
@@ -20,6 +21,7 @@ class ActivityModel {
     required this.description,
     required this.status,
     required this.category,
+    required this.base64File,
   });
 
   factory ActivityModel.fromMap(Map<String, dynamic> map) {
@@ -31,6 +33,7 @@ class ActivityModel {
       description: map['description'] as String,
       status: ActivityStatusEnum.fromId(map['statusId'] as int),
       category: ActivityCategoriesEnum.fromId(map['categoryId'] as int),
+      base64File: map['base64File'] as String,
     );
   }
 

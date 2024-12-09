@@ -1,18 +1,62 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:io';
 
-class ActivitiesDetailPage extends StatelessWidget {
-  const ActivitiesDetailPage({super.key});
+import 'package:design_system/design_system.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../domain/models/activity_model.dart';
+import '../widgets/pick_pdf_widget.dart';
+
+class ActivitiesDetailPage extends StatefulWidget {
+  final ActivityModel activity;
+
+  const ActivitiesDetailPage({
+    super.key,
+    required this.activity,
+  });
+
+  @override
+  State<ActivitiesDetailPage> createState() => _ActivitiesDetailPageState();
+}
+
+class _ActivitiesDetailPageState extends State<ActivitiesDetailPage> {
+  bool isLoadingFile = true;
+  File file = File('');
+
+  @override
+  void initState() {
+    super.initState();
+
+    getFileFromBase64(widget.activity.base64File).then((file) {
+      setState(() {
+        this.file = file;
+        isLoadingFile = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoadingFile) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Visualizar Atividade',
+            style: context.texts.headingH6.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFD4D4D4).withOpacity(0.2),
-        title: Align(
-          child: Image.asset(
-            'assets/imgs/logo-catolica.png',
-            height: 60,
-          ),
+        title: Text(
+          'Visualizar Atividade',
+          style: context.texts.headingH6.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -21,44 +65,35 @@ class ActivitiesDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: Text(
-                  'DETALHES DO ALUNO E ATIVIDADE',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
+              SizedBox(height: 16),
+              _DetailsItem(
+                icon: Icons.description,
+                label: 'Título',
+                value: widget.activity.title,
               ),
-              _buildDetailItem(
+              SizedBox(height: 16),
+              _DetailsItem(
+                icon: Icons.timer,
+                label: 'Carga horária',
+                value: '${widget.activity.workload} horas',
+              ),
+              SizedBox(height: 16),
+              _DetailsItem(
                 icon: Icons.category,
                 label: 'Categoria',
-                value: 'Exercício de monitoria',
+                value: widget.activity.category.name,
               ),
-              _buildDetailItem(
+              SizedBox(height: 16),
+              _DetailsItem(
                 icon: Icons.description,
                 label: 'Descrição',
-                value: 'Curso Online',
+                value: widget.activity.description,
               ),
-              _buildDetailItem(
-                icon: Icons.person,
-                label: 'Nome',
-                value: 'Aluno Tal',
-              ),
-              _buildDetailItem(
-                icon: Icons.badge,
-                label: 'Matrícula',
-                value: 'Aluno Tal',
-              ),
-              _buildDetailItem(
-                icon: Icons.timer,
-                label: 'Horas Validando',
-                value: '60 horas',
-              ),
-              _buildDetailItem(
-                icon: Icons.comment,
-                label: 'Comentários do avaliador',
-                value: 'Ok',
+              SizedBox(height: 16),
+              PickPdfWidget(
+                initialFile: file,
+                onPickPdf: (file) {},
+                isViewOnly: true,
               ),
             ],
           ),
@@ -67,46 +102,61 @@ class ActivitiesDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailItem({
-    required IconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            icon,
-            color: const Color(0xFF9B1536),
-            size: 28,
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF9B1536),
-                    fontSize: 14,
-                  ),
+  Future<File> getFileFromBase64(String base64) async {
+    final bytes = base64Decode(base64);
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/temp.pdf');
+
+    await file.writeAsBytes(bytes);
+
+    return file;
+  }
+}
+
+class _DetailsItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const _DetailsItem({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: const Color(0xFF9B1536),
+          size: 28,
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF9B1536),
+                  fontSize: 14,
                 ),
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

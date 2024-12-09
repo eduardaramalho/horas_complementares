@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 import '../../../domain/enums/activity_categories_enum.dart';
@@ -14,6 +16,9 @@ class ActivitiesFormContentState {
 
   static String description = '';
   static void setDescription(String value) => description = value;
+
+  static File? file;
+  static void setFile(File value) => file = value;
 
   static void reset() {
     workload.value = 0;

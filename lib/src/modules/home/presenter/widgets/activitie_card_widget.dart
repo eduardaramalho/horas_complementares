@@ -1,6 +1,8 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes/custom_navigator.dart';
+import '../../../../core/routes/routes.dart';
 import '../../domain/models/activity_model.dart';
 import 'activity_status_widget.dart';
 
@@ -13,10 +15,10 @@ class ActivitieCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const ActivitiesDetailPage()),
-        // );
+        CustomNavigator.of(context).pushNamed(
+          Routes.activityDetails,
+          extra: activity,
+        );
       },
       child: Container(
         decoration: BoxDecoration(

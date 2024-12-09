@@ -11,6 +11,7 @@ class CreateActivityDto extends DTO {
   final String description;
   final ActivityStatusEnum status;
   final ActivityCategoriesEnum category;
+  final String base64File;
 
   const CreateActivityDto({
     required this.userId,
@@ -19,6 +20,7 @@ class CreateActivityDto extends DTO {
     required this.description,
     required this.status,
     required this.category,
+    required this.base64File,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,6 +31,7 @@ class CreateActivityDto extends DTO {
       'description': description,
       'statusId': status.id,
       'categoryId': category.id,
+      'base64File': base64File,
     };
   }
 

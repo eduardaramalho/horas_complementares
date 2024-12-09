@@ -7,6 +7,7 @@ import '../../domain/enums/activity_categories_enum.dart';
 import '../controllers/activities_form_controller.dart';
 import '../controllers/states/activities_form_content_state.dart';
 import '../resources/activities_form_resources.dart';
+import '../widgets/pick_pdf_widget.dart';
 
 class ActivitiesFormPage extends StatefulWidget {
   final ActivitiesFormController controller;
@@ -94,34 +95,9 @@ class _ActivitiesFormPageState extends State<ActivitiesFormPage> with RequiredFi
                 validator: isValidRequiredField,
               ),
               const SizedBox(height: 16),
-              Container(
-                height: 150,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // TODO: Change this icon to a CatolicaIcon
-                      Icon(
-                        Icons.upload_file,
-                        size: 40,
-                        color: CatolicaColors.neutral500,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        ActivitiesFormResources.uploadCertificateLabel,
-                        style: context.texts.paragraphSmall.copyWith(
-                          color: CatolicaColors.neutral500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              PickPdfWidget(
+                initialFile: ActivitiesFormContentState.file,
+                onPickPdf: ActivitiesFormContentState.setFile,
               ),
               const SizedBox(height: 32),
               CatolicaPrimaryButton(
