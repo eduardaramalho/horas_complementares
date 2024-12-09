@@ -13,6 +13,7 @@ class PickPdfWidget extends StatefulWidget {
   final double radius;
   final String selectPdfText;
   final String changePdfText;
+  final String viewPdfText;
   final String? Function(File?)? validator;
 
   const PickPdfWidget({
@@ -23,6 +24,7 @@ class PickPdfWidget extends StatefulWidget {
     this.radius = 8,
     this.selectPdfText = 'Clique para adicionar o certificado',
     this.changePdfText = 'Clique para alterar o certificado',
+    this.viewPdfText = 'Clique para visualizar o certificado',
     this.validator,
     this.isViewOnly = false,
   });
@@ -77,11 +79,14 @@ class _PickPdfWidgetState extends State<PickPdfWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  file == null ? widget.selectPdfText : widget.changePdfText,
-                  style: context.texts.paragraphSmall.copyWith(
-                    color: CatolicaColors.neutral500,
+                SizedBox(height: 8),
+                Visibility(
+                  visible: widget.isViewOnly,
+                  child: Text(
+                    getHint(file),
+                    style: context.texts.paragraphSmall.copyWith(
+                      color: CatolicaColors.neutral500,
+                    ),
                   ),
                 ),
               ],
@@ -90,6 +95,14 @@ class _PickPdfWidgetState extends State<PickPdfWidget> {
         );
       },
     );
+  }
+
+  String getHint(File? file) {
+    if (widget.isViewOnly) {
+      return widget.viewPdfText;
+    }
+
+    return file == null ? widget.selectPdfText : widget.changePdfText;
   }
 
   Future<void> onTap() async {

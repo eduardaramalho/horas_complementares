@@ -65,7 +65,6 @@ class _ActivitiesDetailPageState extends State<ActivitiesDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 16),
               _DetailsItem(
                 icon: Icons.description,
                 label: 'Título',
@@ -130,7 +129,7 @@ class _DetailsItem extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: const Color(0xFF9B1536),
+          color: CatolicaColors.primary700,
           size: 28,
         ),
         const SizedBox(width: 16),
@@ -140,18 +139,14 @@ class _DetailsItem extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: const TextStyle(
+                style: context.texts.paragraphSmall.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF9B1536),
-                  fontSize: 14,
+                  color: CatolicaColors.primary700,
                 ),
               ),
               Text(
                 value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
+                style: context.texts.paragraphSmall,
               ),
             ],
           ),
