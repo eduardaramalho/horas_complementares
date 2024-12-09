@@ -106,6 +106,7 @@ class _AuthPageState extends State<AuthPage> with EmailValidatorMixin, PasswordV
                           label: AuthResources.password,
                           hint: AuthResources.typePassword,
                           isRequired: true,
+                          isPassword: true,
                           validator: isValidPassword,
                         ),
                         const SizedBox(height: 16),

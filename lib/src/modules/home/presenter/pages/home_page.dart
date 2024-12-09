@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/routes/custom_navigator.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../../core/states/current_user_state.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/states/home_content_state.dart';
 import '../resources/home_resources.dart';
@@ -42,10 +43,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              // CustomNavigator.of(context).push(Routes.user);
+              widget.controller.signOut();
+              CustomNavigator.of(context).push(Routes.auth);
             },
             icon: const Icon(
-              Icons.person_outline,
+              Icons.logout,
               color: CatolicaColors.primary700,
             ),
           ),
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               SizedBox(height: 16),
               Text(
-                HomeResources.welcomeStudent,
+                HomeResources.welcomeStudent(CurrentUserState.userName),
                 style: context.texts.headingH6.copyWith(
                   fontWeight: FontWeight.bold,
                 ),

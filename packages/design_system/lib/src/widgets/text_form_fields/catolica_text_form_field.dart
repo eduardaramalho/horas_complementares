@@ -20,6 +20,7 @@ class CatolicaTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final AutovalidateMode autovalidateMode;
   final String? helperText;
+  final bool isPassword;
 
   const CatolicaTextFormField({
     super.key,
@@ -39,6 +40,7 @@ class CatolicaTextFormField extends StatefulWidget {
     this.initialValue,
     this.helperText,
     this.onChanged,
+    this.isPassword = false,
   });
 
   @override
@@ -47,6 +49,7 @@ class CatolicaTextFormField extends StatefulWidget {
 
 class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
   String? errorMessage;
+  bool obscureText = false;
 
   @override
   void initState() {
@@ -99,7 +102,7 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
           keyboardType: keyboardType,
           onFieldSubmitted: (value) => FocusManager.instance.primaryFocus?.nextFocus(),
           onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
-          maxLines: maxLines,
+          maxLines: widget.isPassword ? 1 : maxLines,
           enabled: widget.enabled,
           autovalidateMode: autovalidateMode,
           maxLength: maxLength,
@@ -107,6 +110,7 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
           validator: validator,
           style: context.texts.paragraphSmall,
           initialValue: initialValue,
+          obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: context.texts.paragraphSmall.copyWith(
@@ -126,7 +130,7 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
             helperStyle: context.texts.paragraphSmall.copyWith(
               color: CatolicaColors.neutral600,
             ),
-            suffixIcon: suffixIcon,
+            suffixIcon: _suffixIcon,
             prefixIcon: prefixIcon != null
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(12, 10, 0, 10),
@@ -161,6 +165,25 @@ class _CatolicaTextFormFieldState extends State<CatolicaTextFormField> {
         ),
       ],
     );
+  }
+
+  Widget? get _suffixIcon {
+    if (widget.isPassword) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8),
+        child: InkWell(
+          child: Icon(
+            obscureText ? Icons.visibility_off : Icons.visibility,
+            color: CatolicaColors.primary500,
+          ),
+          onTap: () {
+            setState(() => obscureText = !obscureText);
+          },
+        ),
+      );
+    }
+
+    return widget.suffixIcon;
   }
 
   Widget? _buildCounter(

@@ -1,6 +1,7 @@
 import '../../core/contracts/modules/module_service_locator.dart';
 import '../../core/services/services.dart';
 import 'domain/usecases/login_user_usecase.dart';
+import 'domain/usecases/sign_out_user_usecase.dart';
 import 'presenter/controllers/auth_controller.dart';
 
 class AuthServiceLocator extends ModuleServiceLocator {
@@ -8,6 +9,12 @@ class AuthServiceLocator extends ModuleServiceLocator {
   Future<void> registerBinds() async {
     ServiceLocator.instance.bindSingleton(
       LoginUserUsecase(
+        authService: ServiceLocator.instance.get<IAuthService>(),
+      ),
+    );
+
+    ServiceLocator.instance.bindSingleton(
+      SignOutUserUsecase(
         authService: ServiceLocator.instance.get<IAuthService>(),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../models/user_model.dart';
 import '../../../states/current_user_state.dart';
 import '../../../utils/either.dart';
 import '../credentials/adapters/user_auth_credential_adapter.dart';
@@ -31,7 +32,7 @@ class FirebaseAuthService implements IAuthService {
         password: password,
       );
 
-      CurrentUserState.setUserId(result.user!.uid);
+      CurrentUserState.setUser(UserModel(id: result.user!.uid, email: email));
 
       return right(true);
     } on FirebaseAuthException catch (error, stackTrace) {
@@ -52,7 +53,7 @@ class FirebaseAuthService implements IAuthService {
         password: password,
       );
 
-      CurrentUserState.setUserId(result.user!.uid);
+      CurrentUserState.setUser(UserModel(id: result.user!.uid, email: email));
 
       return right(true);
     } on FirebaseAuthException catch (error, stackTrace) {
@@ -72,7 +73,7 @@ class FirebaseAuthService implements IAuthService {
 
       if (firebaseUser == null) return null;
 
-      CurrentUserState.setUserId(firebaseUser.uid);
+      CurrentUserState.setUser(UserModel(id: firebaseUser.uid, email: firebaseUser.email!));
 
       return UserAuthCredentialAdapter.fromFirebase(firebaseUser);
     } on FirebaseAuthMultiFactorException catch (error, stackTrace) {

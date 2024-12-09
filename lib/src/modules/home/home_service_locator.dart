@@ -8,7 +8,7 @@ import 'presenter/controllers/home_controller.dart';
 class HomeServiceLocator extends ModuleServiceLocator {
   @override
   Future<void> registerBinds() async {
-    ServiceLocator.instance.bindFactory(() => HomeController(get()));
+    ServiceLocator.instance.bindFactory(() => HomeController(get(), get()));
     ServiceLocator.instance.bindFactory(() => ActivitiesFormController(get()));
 
     ServiceLocator.instance.bindSingleton<GetUserActivitiesUsecase>(

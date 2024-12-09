@@ -4,7 +4,7 @@ mixin class EmailValidatorMixin {
       return 'E-mail obrigatório';
     }
 
-    final isValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+    final isValid = RegExp(r'^[\w-\.]+@catolicasc\.edu\.br$').hasMatch(email);
 
     if (!isValid) {
       return 'E-mail inválido';
